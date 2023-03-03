@@ -15,7 +15,10 @@ return new class extends Migration
             $table->string('model');
             $table->string('color');
             $table->string('brand');
-            $table->foreign('cnic')->references('cnic')->on('people')->onDelete('cascade');
+            $table->bigInteger('person_cnic')->nullable(); // foreign key column
+            $table->foreign('person_cnic')
+                  ->references('cnic')->on('people')
+                  ->onDelete('cascade');
         });
     }
 

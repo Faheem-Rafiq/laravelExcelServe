@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Person;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -16,15 +17,13 @@ class CarSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        for ($index = 0; $index < 100; $index++) {
-            $cnic = '';
-            for ($i = 0; $i < 13; $i += 3) {
-                $cnic .= str_pad($faker->randomNumber(3), 3, '0', STR_PAD_LEFT);
-            }
+        for ($index = 0; $index < 150; $index++) {
+            $carBrands = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan', 'BMW', 'Mercedes-Benz', 'Audi', 'Hyundai', 'Kia'];
             DB::table('cars')->insert([
-                'model' => $faker->name,
+                'model' => $faker->unique()->regexify('[A-Z]{1,3}\d{1,3}'),
                 'color' => $faker->colorName,
-                'brand' => $faker->company,
+                'brand' => $faker->randomElement($carBrands),
+                'person_cnic' => Person::all()->random()->cnic,
             ]);
         }
     }

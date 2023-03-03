@@ -52,4 +52,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::post('/import',  [UserController::class, 'import'])->name('import');
+    Route::get('/download-csv/{table}', 'App\Http\Controllers\DownloadCsvController@downloadCsv');
 });
+
+
