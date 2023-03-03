@@ -13,15 +13,16 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function importView(Request $request){
+        $data = User::all();
         return Inertia::render('Users', [
-            'name' => "Faheem",
+           'users' => $data,
         ]);
     }
  
     public function import(Request $request){
         Excel::import(new ImportUser,
                       $request->file('file')->store('files'));
-        return redirect()->back();
+        return to_route('user');
     }
  
     public function exportUsers(Request $request){

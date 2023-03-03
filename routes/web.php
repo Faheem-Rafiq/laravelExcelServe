@@ -41,6 +41,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/user',  [UserController::class, 'importView'] )->name('user');
+    Route::get('/user',  [UserController::class, 'importView'])->name('user');
 });
 
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::post('/import',  [UserController::class, 'import'])->name('import');
+});
